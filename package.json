@@ -21,7 +21,6 @@
     "async" : "latest",
     "google-geocoder" : "latest",
     "crypto-random-string": "latest",
-    "mongoose-shortid": "latest",
 
     "morgan": "latest",
     "body-parser": "latest",
