@@ -1,14 +1,41 @@
 // app/models/user.js
-// load the things we need
+
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+var genId = require('./gen-id');
+
+function prefix(pid) {
+  return 'u' + pid;
+}
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
+    pid: {
+        type: String,
+        unique: true
+    },
+    creationTime: {type: Date, default: Date.now},
+    name :{
+        first: String,
+        last: String,
+    },
+    isHelper : Boolean,
+    firstLogin : Boolean,
+    home : {
+        lat: Number,
+        lng: Number
+    },
+    transportModes : {
+        bike: Boolean,
+        car: Boolean,
+        public: Boolean
+    },
 
     local            : {
         email        : String,
         password     : String,
+        resetPasswordToken: String,
+        resetPasswordExpires: Date
     },
     facebook         : {
         id           : String,
@@ -30,6 +57,11 @@ var userSchema = mongoose.Schema({
     }
 
 });
+
+userSchema.pre('save', function(next) {
+  let schema = this
+  genId.public('u', schema, next)
+})
 
 // methods ======================
 // generating a hash

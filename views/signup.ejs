@@ -2,44 +2,144 @@
 <!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <style>
-        body        { padding-top:80px; }
-    </style>
+<title>Node Authentication</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="https://use.fontawesome.com/eb37379e07.js"></script>
+
+<style>
+  .container {
+    padding-top: 3em;
+    padding-bottom: 2em;
+  }
+  .form-signup h1 {
+    padding-bottom: 0.5em;
+  }
+  .form-signup {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+  }
+
+  /* --- OR --- */
+  .hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: 0.5;
+  }
+  .hr-text:before {
+    content: '';
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  .hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #fcfcfa;
+  }
+
+  
+  /* Signup */
+  .form-signup .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .form-signup .form-control:focus {
+    z-index: 2;
+  }
+  #inputEmail  {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  #inputPassword  {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  #inputPasswordRe {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .btn-main {
+    background-color: #297373;
+    border-color: #205a5a;
+  }
+  .btn-main:hover { 
+    background-color: #205a5a;
+    cursor:pointer;
+  }
+  
+  /* Links */
+  #links {
+    margin-top: 1em;
+  }
+  #links p {
+    margin-bottom: 0;
+  }
+</style>
 </head>
 <body>
 <div class="container">
-
-<div class="col-sm-6 col-sm-offset-3">
-
-    <h1><span class="fa fa-sign-in"></span> Signup</h1>
-
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
+    <!-- flash messages -->
+    <% if (msgError.length > 0) { %>
+      <div class="alert alert-danger"><%= msgError %></div>
+    <% } %>
+    <% if (msgInfo.length > 0) { %>
+      <div class="alert alert-info"><%= msgInfo %></div>
+    <% } %>
+    <% if (msgSuccess.length > 0) { %>
+      <div class="alert alert-success"><%= msgSuccess %></div>
     <% } %>
 
-    <!-- LOGIN FORM -->
-    <form action="/signup" method="post">
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email">
+    <div class='form-signup'>
+        <h1><span class="fa fa-user-plus"></span> Signup</h1>
+
+        <p><a href="/login">Use a social account</a></p>
+
+        <hr class="hr-text" data-content="OR">
+
+        <!-- SIGNUP FORM -->
+        <form action="/signup" method="post">
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus="" name='email'>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name='password'>
+            <label for="inputPasswordRe" class="sr-only">Retype password</label>
+            <input type="password" id="inputPasswordRe" class="form-control" placeholder="Retype password" required name='passwordRe'>
+
+            <button type="submit" class="btn btn-dark btn-lg btn-block btn-main">Signup</button>
+        </form>
+        <hr>
+        <div id='links'>
+          <p>Already have an account? <a href="/login">Login instead</a></p>
+          <p>Or go back <a href="/">home</a>.</p>
         </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
-        </div>
-
-        <button type="submit" class="btn btn-warning btn-lg">Signup</button>
-    </form>
-
-    <hr>
-
-    <p>Already have an account? <a href="/login">Login</a></p>
-    <p>Or go <a href="/">home</a>.</p>
-
+    </div>
 </div>
 
 </div>

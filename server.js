@@ -14,18 +14,26 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-var configDB = require('./config/database.js');
-var configSecrets = require('./config/secrets.js');
+var configDB  = require('./config/database');
+configSecrets = require('./config/secrets');
+ShortId = require('mongoose-shortid');
+
+async  = require('async');
+crypto = require('crypto');
+
+var AmazonSES = require('node-ses')
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
+ses = AmazonSES.createClient({ key: configSecrets.awsSes.accessKeyId, secret: configSecrets.awsSes.secretAccessKey, amazon: 'https://email.eu-west-1.amazonaws.com' })
+
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser()); // get information from html forms
+app.use(bodyParser.urlencoded()) // get information from html forms
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 

@@ -1,0 +1,502 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script
+ src="https://code.jquery.com/jquery-3.2.1.min.js"
+ integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+ crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+ integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+ crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+ integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+ crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+ integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+ crossorigin="anonymous">
+<script src="https://use.fontawesome.com/eb37379e07.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+ integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+ crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+ integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+ crossorigin=""></script>
+
+<style>
+  .checked.chk-c2 {
+    width: 30.8px;
+    background-color: #e9d758;
+    border-color: #cfbf4e;
+  }
+  .checked.chk-c2:hover:active {
+    background-color: #cfbf4e;
+    border-color: #cfbf4e;
+  }
+  .unchecked.chk-c2 {
+    width: 30.8px;
+    background-color: grey;
+    border: 1px solid grey;
+  }
+  .unchecked.chk-c2:hover:active {
+    background-color: white;
+    border-color: grey;
+  }
+  #wrapper {
+    margin: 2em;
+  }
+</style>
+
+<div id="wrapper">
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+<head>
+<title>Node Authentication</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script
+ src="https://code.jquery.com/jquery-3.2.1.min.js"
+ integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+ crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+ integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+ crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+ integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+ crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+ integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+ crossorigin="anonymous">
+<script src="https://use.fontawesome.com/eb37379e07.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+ integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+ crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+ integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+ crossorigin=""></script>
+
+<style>
+  .contentWrapper {
+    padding-top: 3em;
+    padding-bottom: 2em;
+  }
+  .form-first-login h1 {
+    padding-bottom: 0.5em;
+  }
+  .form-first-login {
+    max-width: 500px;
+    padding: 15px;
+    margin: 0 auto;
+  }
+  
+  /* Signup */
+  .form-first-login .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .form-first-login .form-control:focus {
+    z-index: 2;
+  }
+  .inputFirst {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .inputMiddle  {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .inputLast {
+    margin-bottom: 1em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  .formSegment {
+    border: 1px solid #ced4da;
+  }
+  .btn-main {
+    background-color: #297373;
+    border-color: #205a5a;
+  }
+  .btn-main:hover { 
+    background-color: #205a5a;
+    cursor:pointer;
+  }
+
+  .btn-c2 {
+    background-color: #e9d758;
+    border-color: #cfbf4e;
+  }
+  .btn-c2:hover { 
+    background-color: #cfbf4e;
+    cursor:pointer;
+  }
+
+  #radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+  }
+
+  #inputNameLast {
+    margin-bottom: -3px;
+  }
+
+  /* Leaflet Map */
+  #addressSearch {
+    padding: 0.5em;
+    padding-top: 0;
+  }
+  #map {
+    height: 250px;
+  }
+  #mapWrapper {
+    padding-top: 0.5em;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+  }
+  #mapWrapper label {
+    margin-left: 0.5em;
+  }
+
+  #transportTypeWrapper {
+    border: 1px solid #ced4da;
+    margin-top: -1px;
+  }
+
+  /* Checkboxes & Radio btns */
+  .checked.chk-c2, .checked.rad-c2{
+    background-color: #e9d758;
+    border-color: #cfbf4e;
+  }
+  .checked.chk-c2:hover:active, .checked.rad-c2:hover:active {
+    background-color: #cfbf4e;
+    border-color: #cfbf4e;
+  }
+  .unchecked.chk-c2, .unchecked.rad-c2 {
+    background-color: grey;
+    border: 1px solid grey;
+  }
+  .unchecked.chk-c2:hover:active, .unchecked.rad-c2:hover:active {
+    background-color: white;
+    border-color: grey;
+  }
+  .chk-c2, .rad-c2 {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* --- OR --- */
+  .hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: 0.5;
+    margin-top: 3px;
+    margin-bottom: 11px;
+  }
+  .hr-text:before {
+    content: '';
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  .hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #fcfcfa;
+  }
+
+  .formSegment {
+    padding: 0.5em;
+  }
+
+  #transportTypeWrapper {
+    display: none;
+  }
+
+  #transportTypeWrapper > div > *{
+    float:left;
+  }
+  #transportTypeWrapper > div {
+    margin-bottom: 1em;
+  }
+  #transportTypeWrapper label {
+    margin-bottom: 0.5em;
+  }
+  .chk-c2 + i {
+    width: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  #userTypeWrapper > div {
+    margin-bottom: 1em;
+  }
+  #userTypeWrapper > div > button {
+    margin-right: 1em;
+  }
+
+  /* Links */
+  #links {
+    margin-top: 1em;
+  }
+  #transportTypeWrapper > * {
+    margin-bottom: 0;
+  }
+
+  .vcenter {
+    display: flex;
+    align-items: center;
+  }
+</style>
+</head>
+<body>
+<div class="contentWrapper">
+    <!-- flash messages -->
+    <% if (msgError.length > 0) { %>
+      <div class="alert alert-danger"><%= msgError %></div>
+    <% } %>
+    <% if (msgInfo.length > 0) { %>
+      <div class="alert alert-info"><%= msgInfo %></div>
+    <% } %>
+    <% if (msgSuccess.length > 0) { %>
+      <div class="alert alert-success"><%= msgSuccess %></div>
+    <% } %>
+
+    <div class='form-first-login'>
+        <h1><i class="fa fa-info" aria-hidden="true"></i> Tell us some more</h1>
+
+        <!-- SIGNUP FORM -->
+        <form action="/first-login" method="post">
+            <label for="inputNameFirst" class="sr-only">First name</label>
+            <input type="text" id="inputNameFirst" class="form-control inputFirst" placeholder="First name" required autofocus="" name='nameFirst'>
+            <label for="inputNameLast" class="sr-only">Surname</label>
+            <input type="text" id="inputNameLast" class="form-control inputMiddle" placeholder="Surname" required autofocus="" name='nameLast'>
+
+            <div id="userTypeWrapper" class="inputMiddle formSegment">
+              <label> I'm looking...</label><br>
+              <div class="vcenter">
+                <button type="button" id="ut-requester" class="btn btn-dark btn-sm rad-c2 checked">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button> for help with a tech problem
+              </div>
+              <div class="vcenter">
+                <button type="button" id="ut-helper" class="btn btn-dark btn-sm rad-c2 unchecked">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </button> to help others
+              </div>
+              <input type="hidden" id="inputUserType" name='helper' value='false'>
+            </div>
+
+            <div id="mapWrapper" class="inputLast formSegment">
+              <label><i class="fa fa-home" aria-hidden="true"></i> Choose your home location</label>
+              <div class="input-group" id="addressSearch">
+                <input type="text" class="form-control" placeholder="Address">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary btn-c2" type="button">Search</button>
+                </span>
+              </div>
+              <hr class="hr-text" data-content="OR">
+              <div id="map"></div>
+              <input type="hidden" id="inputHome" name='home' value="{ 'lat': 50.8790, 'lng': 4.7010'}">
+            </div>
+
+            <div id="transportTypeWrapper" class="inputLast formSegment">
+              <label> What mode of transportation do you usually use?</label><br>
+              <div class="vcenter">
+                <button type="button" id="tpt-bike" class="btn btn-dark btn-sm chk-c2 checked">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button><i class="fa fa-bicycle" aria-hidden="true"></i> Bike
+              </div>
+              <div class="vcenter">
+                <button type="button" id="tpt-car" class="btn btn-dark btn-sm chk-c2 chk-tp checked">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button><i class="fa fa-car" aria-hidden="true"></i> Car
+              </div>
+              <div class="vcenter">
+                <button type="button" id="tpt-public" class="btn btn-dark btn-sm chk-c2 chk-tp checked">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button><i class="fa fa-train" aria-hidden="true"></i> Public transport
+              </div>
+              <input type="hidden" id="inputTransport" name='transport' value='{ "bike":true, "car":true, "public":true}'>
+            </div>
+
+            <% if (msgSuccess.length > 0) { %>
+              <input type="hidden" name='redirectUrl' value=<%= redirectUrl %>>
+            <% } else { %>
+              <input type="hidden" name='redirectUrl' value="/home">
+            <% } %>
+
+            <button type="submit" class="btn btn-dark btn-lg btn-block btn-main">Submit</button>
+        </form>
+        <hr>
+        <div id='links'>
+          <p>Or go back <a href="/">home</a>.</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var map;
+var ajaxRequest;
+var plotlist;
+var plotlayers=[];
+var marker;
+
+function updatecoords(loc) {
+  loc.lat = loc.lat.toFixed(4);
+  loc.lng = loc.lng.toFixed(4);
+  $('#coordinatesDisplay').html(loc.lat + ", " + loc.lng);
+  $('#inputHome').val(JSON.stringify(loc));
+  marker.setLatLng(loc);
+}
+
+
+function initmap() {
+  // set up the map
+  map = new L.Map('map');
+
+  // create the tile layer with correct attribution
+  var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+  var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 17, attribution: osmAttrib});   
+
+  // start the map in South-East England
+  map.setView(new L.LatLng(50.8790, 4.7010),14);
+  map.addLayer(osm);
+
+  $('.leaflet-control-container').append('<div class="leaflet-bottom leaflet-left"><div id="coordinatesDisplay" class="leaflet-control-attribution leaflet-control">50.8790, 4.7010</div></div>')
+
+  var houseIcon = L.icon({
+    iconUrl: 'http://static.csts.ubipo.net/images/map-house.png',
+    shadowUrl: 'http://static.csts.ubipo.net/images/map-house-shadow.png',
+
+    iconSize:     [40, 50], // size of the icon
+    shadowSize:   [32, 43], // size of the shadow
+    iconAnchor:   [20, 50], // point of the icon which will correspond to marker's location
+    shadowAnchor: [1, 43],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
+
+  map.on('click', function(e) {
+    updatecoords(e.latlng);
+  });
+
+
+  marker = L.marker([50.879, 4.701], {
+    icon: houseIcon,
+    draggable: true
+  }).addTo(map);
+
+  marker.on('dragend', function(e) {
+    updatecoords(marker.getLatLng());
+  });
+}
+
+$('#addressSearch input').keydown(function(e){
+    if(e.keyCode == 13) {
+      event.preventDefault();
+      adressSearch();
+    }
+});
+
+$('#addressSearch button').click(function(e) {
+    adressSearch();
+});
+
+function adressSearch() {
+  $.get( "geocode?address=" + $('#addressSearch input').val())
+  .done(function(data) {
+    $('#addressSearch input').val(data.formatted_address);
+    updatecoords(data.location);
+    map.setView(data.location, 14);
+  })
+  .fail(function() {
+    alert( "error" );
+  })
+}
+
+$('#tpt-bike').click(function(e){
+  var json = JSON.parse($('#inputTransport').val());
+  json.bike = !json.bike;
+  $('#inputTransport').val(JSON.stringify(json));
+})
+$('#tpt-car').click(function(e){
+  var json = JSON.parse($('#inputTransport').val());
+  json.car = !json.car;
+  $('#inputTransport').val(JSON.stringify(json));
+})
+$('#tpt-public').click(function(e){
+  var json = JSON.parse($('#inputTransport').val());
+  json.public = !json.public;
+  $('#inputTransport').val(JSON.stringify(json));
+})
+
+$('#ut-requester').click(function(e){
+  $('#inputUserType').val('false');
+  $('#transportTypeWrapper').slideUp("fast").prev().addClass('inputLast').removeClass('inputMiddle');
+})
+$('#ut-helper').click(function(e){
+  $('#inputUserType').val('true');
+  $('#transportTypeWrapper').slideDown("fast").prev().addClass('inputMiddle').removeClass('inputLast');
+})
+
+$('.chk-c2').click(function(e){
+  if($(this).hasClass("checked")) {
+    $(this).removeClass("checked");
+    $(this).addClass("unchecked");
+    $("i", this).removeClass("fa-check");
+    $("i", this).addClass("fa-times");
+  } else {
+    $(this).removeClass("unchecked");
+    $(this).addClass("checked");
+    $("i", this).removeClass("fa-times");
+    $("i", this).addClass("fa-check");
+  }
+})
+
+$('.rad-c2').click(function(e){
+  $(this).parent().parent().find('button').each(function( index ) {
+    $(this).removeClass("checked");
+    $(this).addClass("unchecked");
+    $("i", this).removeClass("fa-check");
+    $("i", this).addClass("fa-times");
+  });
+
+  $(this).removeClass("unchecked");
+  $(this).addClass("checked");
+  $("i", this).removeClass("fa-times");
+  $("i", this).addClass("fa-check");
+})
+
+$( document ).ready(function() {
+    initmap();
+});
+
+</script>
+</body>
+</html>
+
+</div>

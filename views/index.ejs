@@ -2,27 +2,96 @@
 <!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <title>CSTS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script
+     src="https://code.jquery.com/jquery-3.2.1.min.js"
+     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+     crossorigin="anonymous"></script>
+    <script src="egg.js"></script>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     <style>
-        body        { padding-top:80px; }
+        .container {
+            padding-top:80px;
+        }
+        body {
+            height: 100vh;
+        }
+        #page-wrapper {
+            height: 100vh;
+        }
+        #egg-wrapper {
+          display: flex;
+          position: absolute;
+          z-index: -1;
+          height: 100vh;
+          width: 100vw;
+          top: 0;
+          left: 0;
+          flex-wrap: wrap;
+        }
+
+        .egg {
+          flex-grow: 1;
+          object-fit: fill;
+          width: 400px;
+          max-height: 400px;
+        }
     </style>
 </head>
 <body>
-<div class="container">
+<div id="page-wrapper">
+    <div class="container">
 
-    <div class="jumbotron text-center">
-        <h1>CSTS Login</h1>
+        <!-- show any error messages that come back -->
+        <% if (msgError.length > 0) { %>
+            <div class="alert alert-danger"><%= msgError %></div>
+        <% } %>
 
-        <p>Login or Register with:</p>
+        <!-- show any info messages that come back -->
+        <% if (msgInfo.length > 0) { %>
+            <div class="alert alert-info"><%= msgInfo %></div>
+        <% } %>
 
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
-        <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-        <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+        <!-- show any success messages that come back -->
+        <% if (msgSuccess.length > 0) { %>
+            <div class="alert alert-success"><%= msgSuccess %></div>
+        <% } %>
+
+        <div class="jumbotron text-center">
+            <h1>CSTS Login</h1>
+
+            <p>Login or Register with:</p>
+
+            <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+            <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+            <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+            <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+            <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
+        </div>
     </div>
-
+    <div id="egg-wrapper">
+    </div>
 </div>
+
+<script type="text/javascript">
+    if (window.location.hash && window.location.hash == '#_=_') {
+        if (window.history && history.pushState) {
+            window.history.pushState("", document.title, window.location.pathname);
+        } else {
+            // Prevent scrolling by storing the page's current scroll offset
+            var scroll = {
+                top: document.body.scrollTop,
+                left: document.body.scrollLeft
+            };
+            window.location.hash = '';
+            // Restore the scroll offset, should be flicker free
+            document.body.scrollTop = scroll.top;
+            document.body.scrollLeft = scroll.left;
+        }
+    }
+</script>
+
 </body>
 </html>

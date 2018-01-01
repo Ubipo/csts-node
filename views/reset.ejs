@@ -1,0 +1,65 @@
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script> <!-- load jquerry -->
+    <style>
+        body        { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="col-sm-6 col-sm-offset-3">
+
+    <h1><span class="fa fa-key"></span> Reset Password</h1>
+
+    <!-- show any error messages that come back -->
+    <% if (msgError.length > 0) { %>
+        <div class="alert alert-danger"><%= msgError %></div>
+    <% } %>
+
+    <!-- show any info messages that come back -->
+    <% if (msgInfo.length > 0) { %>
+        <div class="alert alert-info"><%= msgInfo %></div>
+    <% } %>
+
+    <!-- show any success messages that come back -->
+    <% if (msgSuccess.length > 0) { %>
+        <div class="alert alert-success"><%= msgSuccess %></div>
+    <% } %>
+
+    <!-- LOGIN FORM -->
+    <form action="/reset" method="post" id="resetForm">
+        <div class="form-group">
+            <label>New password</label>
+            <input type="password" class="form-control" name="password" autofocus='true'>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" name="confirm">
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+    </form>
+
+    <hr>
+
+    <p>Want to login instead? <a href="/login">Login</a></p>
+    <p>Or go <a href="/">home</a>.</p>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+  $('#resetForm').attr("action", "/reset/" + window.location.pathname.substr(7));
+</script>
+</body>
+</html>
