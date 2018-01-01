@@ -1,6 +1,5 @@
 # Server secrets and passwords
-/config/secrets.js
-/config/auth.js
+
 
 # Node modules
 node_modules/**

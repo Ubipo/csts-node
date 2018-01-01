@@ -15,7 +15,6 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var configDB  = require('./config/database');
-configSecrets = require('./config/secrets');
 ShortId = require('mongoose-shortid');
 
 async  = require('async');
@@ -28,7 +27,7 @@ mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
-ses = AmazonSES.createClient({ key: configSecrets.awsSes.accessKeyId, secret: configSecrets.awsSes.secretAccessKey, amazon: 'https://email.eu-west-1.amazonaws.com' })
+ses = AmazonSES.createClient({ key: process.env.AWS_ACCESS_KEY_ID, secret: process.env.AWS_ACCESS_ACCESS_SECRET, amazon: 'https://email.eu-west-1.amazonaws.com' })
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
@@ -38,7 +37,7 @@ app.use(bodyParser.urlencoded()) // get information from html forms
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
-app.use(session({ secret: configSecrets.expressSecret})); // session secret
+app.use(session({ secret: process.env.EXPRESS_SECRET})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session

@@ -123,11 +123,9 @@ module.exports = function(passport) {
 	// FACEBOOK ================================================================
 	// =========================================================================
 	passport.use(new FacebookStrategy({
-
-		// pull in our app id and secret from our auth.js file
-		clientID        : configAuth.facebookAuth.clientID,
-		clientSecret    : configAuth.facebookAuth.clientSecret,
-		callbackURL     : configAuth.facebookAuth.callbackURL,
+		clientID        : process.env.FACEBOOK_AUTH_ID,
+		clientSecret    : process.env.FACEBOOK_AUTH_SECRET,
+		callbackURL     : 'http://csts.ubipo.net/auth/facebook/callback',
 		profileFields: ['id', 'emails', 'name'],
 		passReqToCallback : true
 	},
@@ -234,9 +232,9 @@ module.exports = function(passport) {
 	// =========================================================================
 	passport.use(new GoogleStrategy({
 
-		clientID        : configAuth.googleAuth.clientID,
-		clientSecret    : configAuth.googleAuth.clientSecret,
-		callbackURL     : configAuth.googleAuth.callbackURL,
+		clientID        : process.env.GOOGLE_AUTH_ID,
+		clientSecret    : process.env.GOOGLE_AUTH_SECRET,
+		callbackURL     : 'http://csts.ubipo.net/auth/google/callback',
 		passReqToCallback : true
 	},
 	function(req, token, refreshToken, profile, done) {
@@ -334,9 +332,9 @@ module.exports = function(passport) {
 	// =========================================================================
 	passport.use(new TwitterStrategy({
 
-		consumerKey     : configAuth.twitterAuth.consumerKey,
-		consumerSecret  : configAuth.twitterAuth.consumerSecret,
-		callbackURL     : configAuth.twitterAuth.callbackURL,
+		consumerKey     : process.env.TWITTER_AUTH_ID,
+		consumerSecret  : process.env.TWITTER_AUTH_SECRET,
+		callbackURL     : 'http://csts.ubipo.net/auth/twitter/callback',
 		passReqToCallback : true
 
 	},

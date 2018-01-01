@@ -3,7 +3,7 @@ var geocoder = require('google-geocoder');
 module.exports = {
 	coordinates: function(address, callback) {
 		var geo = geocoder({
-		  key: configSecrets.googleGeocodeApiKey
+		  key: process.env.GOOLE_API_KEY,
 		});
 
 		geo.find(address, function(err, res){
